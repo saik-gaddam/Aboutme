@@ -8,9 +8,9 @@
     <style>
         :root {
             --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.75);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --accent-glow: rgba(99, 102, 241, 0.35);
+            --card-bg: rgba(17, 24, 39, 0.8);
+            --border-color: rgba(255, 255, 255, 0.12);
+            --accent-glow: rgba(99, 102, 241, 0.4);
             --text-primary: #f3f4f6;
             --text-secondary: #9ca3af;
             --primary: #6366f1;
@@ -32,37 +32,49 @@
             position: relative;
         }
 
-        /* Live Background Floating Orbs (Moving objects requiring no mouse interaction) */
-        .ambient-orb {
+        /* LIVE MOVING BACKGROUND SHAPES (Requires no mouse interaction) */
+        .moving-shape {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
             z-index: -1;
-            animation: moveOrbs 12s ease-in-out infinite alternate;
             pointer-events: none;
+            opacity: 0.6;
+            animation: floatShape 8s ease-in-out infinite alternate;
         }
 
-        .orb-1 {
-            width: 350px;
-            height: 350px;
-            background: rgba(99, 102, 241, 0.25);
-            top: 10%;
+        .shape-1 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            top: 15%;
+            left: 5%;
+            animation-duration: 9s;
+        }
+
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            top: 60%;
+            right: 8%;
+            animation-duration: 7s;
+            animation-delay: -3s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            bottom: 10%;
             left: 10%;
+            animation-duration: 11s;
+            animation-delay: -5s;
         }
 
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: rgba(168, 85, 247, 0.2);
-            bottom: 15%;
-            right: 10%;
-            animation-delay: -6s;
-        }
-
-        @keyframes moveOrbs {
-            0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(50px, -40px) scale(1.1); }
-            100% { transform: translate(-30px, 50px) scale(0.95); }
+        @keyframes floatShape {
+            0% { transform: translateY(0px) translateX(0px) scale(1); }
+            50% { transform: translateY(-40px) translateX(30px) scale(1.1); }
+            100% { transform: translateY(30px) translateX(-25px) scale(0.9); }
         }
 
         .container {
@@ -92,21 +104,21 @@
 
         /* Live Pulsing Badge */
         @keyframes badgePulse {
-            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.5); }
-            70% { box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
+            70% { box-shadow: 0 0 0 14px rgba(99, 102, 241, 0); }
             100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
         }
 
         .badge {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(99, 102, 241, 0.15);
             color: #818cf8;
             padding: 6px 16px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.35);
             animation: badgePulse 2s infinite;
         }
 
@@ -225,7 +237,7 @@
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
         }
 
-        /* Projects Grid & Continuous Floating Motion */
+        /* Projects Grid & Independent Live Floating Cards */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -234,7 +246,7 @@
 
         @keyframes floatCard {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         .project-card {
@@ -248,21 +260,19 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            /* Noticeable floating motion loop */
-            animation: floatCard 3s ease-in-out infinite;
+            animation: floatCard 3.5s ease-in-out infinite;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* Distinct delays so cards move up and down asynchronously */
         .project-card:nth-child(1) { animation-delay: 0s; }
-        .project-card:nth-child(2) { animation-delay: 0.6s; }
-        .project-card:nth-child(3) { animation-delay: 1.2s; }
-        .project-card:nth-child(4) { animation-delay: 1.8s; }
+        .project-card:nth-child(2) { animation-delay: 0.8s; }
+        .project-card:nth-child(3) { animation-delay: 1.6s; }
+        .project-card:nth-child(4) { animation-delay: 2.4s; }
 
         .project-card:hover {
             border-color: rgba(99, 102, 241, 0.6);
             box-shadow: 0 15px 35px var(--accent-glow);
-            animation-play-state: paused; 
+            animation-play-state: paused;
         }
 
         .project-card h3 {
@@ -356,15 +366,16 @@
         }
 
         .project-card:not(.hidden) {
-            animation: floatCard 3s ease-in-out infinite, popIn 0.4s ease-out forwards;
+            animation: floatCard 3.5s ease-in-out infinite, popIn 0.4s ease-out forwards;
         }
     </style>
 </head>
 <body>
 
-    <!-- Moving Background Objects (Ambient Orbs) -->
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
+    <!-- Moving Background Shapes (Visible live motion without mouse) -->
+    <div class="moving-shape shape-1"></div>
+    <div class="moving-shape shape-2"></div>
+    <div class="moving-shape shape-3"></div>
 
     <div class="container">
         <!-- Hero Section -->
