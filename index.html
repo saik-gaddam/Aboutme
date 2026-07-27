@@ -30,9 +30,15 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 40%);
+                radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
             background-attachment: fixed;
+            animation: bgPulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.15); }
         }
 
         .container {
@@ -58,6 +64,13 @@
             animation: fadeInDown 0.8s ease-out;
         }
 
+        /* Live Pulsing Badge */
+        @keyframes badgePulse {
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        }
+
         .badge {
             display: inline-block;
             background: rgba(99, 102, 241, 0.1);
@@ -68,7 +81,7 @@
             font-weight: 600;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(99, 102, 241, 0.2);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            animation: badgePulse 2s infinite;
         }
 
         header h1 {
@@ -120,7 +133,6 @@
         .btn-outline:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
         }
 
         /* About Intro Section */
@@ -187,11 +199,16 @@
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
         }
 
-        /* Projects Grid & Live Cards */
+        /* Projects Grid & Live Floating Cards */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
         }
 
         .project-card {
@@ -200,37 +217,26 @@
             border-radius: 12px;
             padding: 1.75rem;
             backdrop-filter: blur(12px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.6s ease-out backwards;
+            /* Automatic independent floating motion */
+            animation: floatCard 4s ease-in-out infinite;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* Subtle glowing light hover effect tracker */
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(99, 102, 241, 0.15), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
+        /* Stagger floating speeds/delays so cards move organically */
+        .project-card:nth-child(1) { animation-delay: 0s; }
+        .project-card:nth-child(2) { animation-delay: 1s; }
+        .project-card:nth-child(3) { animation-delay: 2s; }
+        .project-card:nth-child(4) { animation-delay: 1.5s; }
 
         .project-card:hover {
-            transform: translateY(-8px) scale(1.01);
             border-color: rgba(99, 102, 241, 0.5);
             box-shadow: 0 15px 35px var(--accent-glow);
+            animation-play-state: paused; /* Pause floating when hovered for easy reading */
         }
 
         .project-card h3 {
@@ -266,11 +272,16 @@
             width: max-content;
         }
 
-        /* Skills pills */
+        /* Skills pills with live staggered appearance */
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+        }
+
+        @keyframes pillPop {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .skill-pill {
@@ -281,8 +292,16 @@
             font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-primary);
+            animation: pillPop 0.5s ease-out backwards;
             transition: all 0.3s ease;
         }
+
+        .skill-pill:nth-child(1) { animation-delay: 0.1s; }
+        .skill-pill:nth-child(2) { animation-delay: 0.2s; }
+        .skill-pill:nth-child(3) { animation-delay: 0.3s; }
+        .skill-pill:nth-child(4) { animation-delay: 0.4s; }
+        .skill-pill:nth-child(5) { animation-delay: 0.5s; }
+        .skill-pill:nth-child(6) { animation-delay: 0.6s; }
 
         .skill-pill:hover {
             border-color: var(--primary);
@@ -312,7 +331,7 @@
         }
 
         .project-card:not(.hidden) {
-            animation: popIn 0.4s ease-out forwards;
+            animation: floatCard 4s ease-in-out infinite, popIn 0.4s ease-out forwards;
         }
     </style>
 </head>
@@ -411,9 +430,8 @@
         </footer>
     </div>
 
-    <!-- Live Interaction Scripts -->
+    <!-- Tab Filtering Script -->
     <script>
-        // Tab Filtering Script
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -428,18 +446,6 @@
                 }
             });
         }
-
-        // Mouse-tracking glow effect for project cards
-        const cards = document.querySelectorAll('.project-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
     </script>
 
 </body>
