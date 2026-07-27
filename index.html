@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Krishna Gaddam — Developer Portfolio</title>
+    <title>Sai Krishna Gaddam — Software Developer Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -43,8 +43,7 @@
         /* Hero */
         header {
             text-align: center;
-            padding: 4rem 0 3rem;
-            position: relative;
+            padding: 3rem 0 2rem;
         }
 
         .badge {
@@ -68,10 +67,11 @@
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto 2rem;
+            line-height: 1.6;
         }
 
         .btn-group {
@@ -108,16 +108,64 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Sections */
-        section {
-            padding: 3rem 0;
+        /* About Intro Section */
+        .about-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(12px);
         }
 
-        h2 {
+        .about-section h2 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
             font-size: 1.75rem;
             color: #ffffff;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
+        }
+
+        /* Tabs Navigation */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            border-color: rgba(99, 102, 241, 0.3);
         }
 
         /* Projects Grid */
@@ -175,6 +223,7 @@
             border-radius: 4px;
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
+            width: max-content;
         }
 
         /* Skills pills */
@@ -205,7 +254,12 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             border-top: 1px solid var(--border-color);
-            margin-top: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Utility for filtering tabs */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -216,46 +270,68 @@
         <header>
             <div class="badge">Available for opportunities</div>
             <h1>Sai Krishna Gaddam</h1>
-            <p>Software Developer specializing in building clean, scalable, and responsive web applications.</p>
+            <p>Software Developer specializing in building clean, scalable, and responsive web applications with a strong passion for functional design.</p>
             <div class="btn-group">
-                <a href="#projects" class="btn">View Projects</a>
+                <a href="#projects" class="btn">Explore Work</a>
                 <a href="https://github.com/saik-gaddam" target="_blank" class="btn btn-outline">GitHub Profile</a>
             </div>
         </header>
 
-        <!-- Projects Section -->
+        <!-- Intro / About Section -->
+        <div class="about-section">
+            <h2>👋 Hello There!</h2>
+            <p>
+                I am a dedicated developer focused on building interactive, user-centric web experiences. My journey involves turning complex logic into smooth, accessible user interfaces and robust applications. Take a look at my highlighted projects categorized below to see what I've been building!
+            </p>
+        </div>
+
+        <!-- Projects Section with Tabs -->
         <section id="projects">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <!-- Category Tabs -->
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="filterProjects('all')">All Projects</button>
+                <button class="tab-btn" onclick="filterProjects('webapp')">Web Apps</button>
+                <button class="tab-btn" onclick="filterProjects('ecommerce')">E-Commerce</button>
+                <button class="tab-btn" onclick="filterProjects('professional')">Professional</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="project-grid">
                 
-                <div class="project-card">
+                <!-- Project 1: Travel Agency -->
+                <div class="project-card" data-category="webapp">
                     <div>
-                        <h3><a href="https://github.com/saik-gaddam" target="_blank">Travel Agency</a></h3>
-                        <p>A web application built to explore, manage, and book travel destinations seamlessly with an interactive layout.</p>
+                        <h3><a href="https://github.com/saik-gaddam/Travel-agency" target="_blank">Travel Agency</a></h3>
+                        <p>A responsive travel agency application featuring destination packages, seamless search interfaces, and user-friendly layouts.</p>
                     </div>
                     <span class="tag">Web App</span>
                 </div>
 
-                <div class="project-card">
+                <!-- Project 2: ShopEase Product Catalog -->
+                <div class="project-card" data-category="ecommerce">
                     <div>
-                        <h3><a href="https://github.com/saik-gaddam" target="_blank">ShopEase Product Catalog</a></h3>
-                        <p>An organized product catalog module optimized for high performance and clean e-commerce navigation.</p>
+                        <h3><a href="https://github.com/saik-gaddam/shopease_productcatalog" target="_blank">ShopEase Product Catalog</a></h3>
+                        <p>An organized product catalog module optimized for high performance and smooth e-commerce inventory browsing.</p>
                     </div>
                     <span class="tag">E-Commerce</span>
                 </div>
 
-                <div class="project-card">
+                <!-- Project 3: Simple E-Commerce Store -->
+                <div class="project-card" data-category="ecommerce">
                     <div>
-                        <h3><a href="https://github.com/saik-gaddam" target="_blank">Simple E-Commerce Store</a></h3>
-                        <p>A functional e-commerce storefront project featuring interactive product cards and cart workflows.</p>
+                        <h3><a href="https://github.com/saik-gaddam/CodeAlpha-Simple_E-Commerce_Store" target="_blank">Simple E-Commerce Store</a></h3>
+                        <p>A functional e-commerce storefront project highlighting interactive product cards, structured displays, and cart mechanisms.</p>
                     </div>
-                    <span class="tag">Frontend</span>
+                    <span class="tag">E-Commerce</span>
                 </div>
 
-                <div class="project-card">
+                <!-- Project 4: Civil Engineer Portfolio -->
+                <div class="project-card" data-category="professional">
                     <div>
-                        <h3><a href="https://github.com/saik-gaddam" target="_blank">Civil Engineer Portfolio</a></h3>
-                        <p>A professional web presence crafted for structural engineering services and project showcases.</p>
+                        <h3><a href="https://github.com/saik-gaddam/kappala_chandhrashekar_civil_engineer" target="_blank">Civil Engineer Portfolio</a></h3>
+                        <p>A professional web presence crafted for specialized structural engineering services and project galleries.</p>
                     </div>
                     <span class="tag">Professional</span>
                 </div>
@@ -263,9 +339,9 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
+        <!-- Core Skills Section -->
         <section>
-            <h2>Core Skills</h2>
+            <h2 class="section-title" style="margin-top: 2rem;">Core Skills</h2>
             <div class="skills-grid">
                 <div class="skill-pill">HTML5 & CSS3</div>
                 <div class="skill-pill">JavaScript (ES6+)</div>
@@ -281,6 +357,26 @@
             <p>&copy; 2026 Sai Krishna Gaddam. Built with passion & code.</p>
         </footer>
     </div>
+
+    <!-- Tab Filtering Script -->
+    <script>
+        function filterProjects(category) {
+            // Update active button state
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
