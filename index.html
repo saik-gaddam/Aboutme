@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sai Krishna Gaddam — Software Developer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Retro Arcade & Clean Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.8);
-            --border-color: rgba(255, 255, 255, 0.12);
-            --accent-glow: rgba(99, 102, 241, 0.4);
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
+            --bg-color: #0b091a;
+            --card-bg: rgba(26, 22, 48, 0.85);
+            --border-color: rgba(255, 0, 128, 0.3);
+            --accent-glow: rgba(0, 240, 255, 0.4);
+            --text-primary: #fff0f5;
+            --text-secondary: #b8b2cb;
+            --retro-pink: #ff007f;
+            --retro-cyan: #00f0ff;
+            --retro-yellow: #ffe600;
+            --retro-orange: #ff7700;
+            --retro-green: #00ff66;
         }
 
         * {
@@ -32,49 +36,60 @@
             position: relative;
         }
 
-        /* LIVE MOVING BACKGROUND SHAPES (Requires no mouse interaction) */
-        .moving-shape {
+        /* RETRO MOVING AMBIENT SHAPES (Active No-Touch Motion) */
+        .retro-shape {
             position: absolute;
             border-radius: 50%;
             z-index: -1;
             pointer-events: none;
             opacity: 0.6;
-            animation: floatShape 8s ease-in-out infinite alternate;
+            filter: blur(50px);
+            animation: retroDrift 10s ease-in-out infinite alternate;
         }
 
-        .shape-1 {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            top: 15%;
+        .shape-pink {
+            width: 200px;
+            height: 200px;
+            background: var(--retro-pink);
+            top: 10%;
             left: 5%;
-            animation-duration: 9s;
+            animation-duration: 8s;
         }
 
-        .shape-2 {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #3b82f6, #6366f1);
-            top: 60%;
+        .shape-cyan {
+            width: 240px;
+            height: 240px;
+            background: var(--retro-cyan);
+            top: 45%;
             right: 8%;
-            animation-duration: 7s;
+            animation-duration: 12s;
             animation-delay: -3s;
         }
 
-        .shape-3 {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            bottom: 10%;
+        .shape-yellow {
+            width: 170px;
+            height: 170px;
+            background: var(--retro-yellow);
+            bottom: 15%;
             left: 10%;
-            animation-duration: 11s;
+            animation-duration: 9s;
             animation-delay: -5s;
         }
 
-        @keyframes floatShape {
+        .shape-orange {
+            width: 210px;
+            height: 210px;
+            background: var(--retro-orange);
+            bottom: 5%;
+            right: 12%;
+            animation-duration: 11s;
+            animation-delay: -2s;
+        }
+
+        @keyframes retroDrift {
             0% { transform: translateY(0px) translateX(0px) scale(1); }
-            50% { transform: translateY(-40px) translateX(30px) scale(1.1); }
-            100% { transform: translateY(30px) translateX(-25px) scale(0.9); }
+            50% { transform: translateY(-50px) translateX(40px) scale(1.15); }
+            100% { transform: translateY(40px) translateX(-35px) scale(0.9); }
         }
 
         .container {
@@ -102,32 +117,38 @@
             animation: fadeInDown 0.8s ease-out;
         }
 
-        /* Live Pulsing Badge */
-        @keyframes badgePulse {
-            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
-            70% { box-shadow: 0 0 0 14px rgba(99, 102, 241, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        /* Retro Pulsing Badge */
+        @keyframes retroBadgePulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 127, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 127, 0); }
         }
 
         .badge {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            padding: 6px 16px;
+            font-family: 'Silkscreen', cursive;
+            background: rgba(255, 0, 127, 0.15);
+            color: var(--retro-pink);
+            padding: 8px 18px;
             border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.75rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.35);
-            animation: badgePulse 2s infinite;
+            border: 2px solid var(--retro-pink);
+            animation: retroBadgePulse 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2rem;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 0.75rem;
+            color: var(--retro-cyan);
+            margin-bottom: 1.25rem;
+            line-height: 1.4;
             letter-spacing: -0.025em;
+            text-shadow: 3px 3px var(--retro-pink);
         }
 
         header p {
@@ -145,50 +166,55 @@
         }
 
         .btn {
-            background: var(--primary);
+            background: var(--retro-pink);
             color: white;
             padding: 0.75rem 1.75rem;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 0, 127, 0.4);
+            border: 1px solid var(--retro-pink);
         }
 
         .btn:hover {
-            background: var(--primary-hover);
+            background: #ff198c;
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 0, 127, 0.7);
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            box-shadow: none;
+            border: 2px solid var(--retro-cyan);
+            color: var(--retro-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
 
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--retro-cyan);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+            color: #ffffff;
         }
 
         /* About Intro Section */
         .about-section {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 16px;
             padding: 2.5rem;
             margin: 3rem 0;
             backdrop-filter: blur(12px);
             animation: fadeInUp 0.8s ease-out 0.2s backwards;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .about-section h2 {
-            font-size: 1.5rem;
-            color: #ffffff;
+            font-family: 'Silkscreen', cursive;
+            font-size: 1.25rem;
+            color: var(--retro-cyan);
             margin-bottom: 1rem;
+            letter-spacing: 1px;
         }
 
         .about-section p {
@@ -204,10 +230,12 @@
         }
 
         .section-title {
-            font-size: 1.75rem;
+            font-family: 'Silkscreen', cursive;
+            font-size: 1.4rem;
             color: #ffffff;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.2);
         }
 
         /* Tabs Navigation */
@@ -231,10 +259,10 @@
         }
 
         .tab-btn:hover, .tab-btn.active {
-            background: rgba(99, 102, 241, 0.2);
-            color: #818cf8;
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--retro-cyan);
+            border-color: var(--retro-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
         /* Projects Grid & Independent Live Floating Cards */
@@ -246,12 +274,12 @@
 
         @keyframes floatCard {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-10px); }
         }
 
         .project-card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             padding: 1.75rem;
             backdrop-filter: blur(12px);
@@ -264,13 +292,13 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .project-card:nth-child(1) { animation-delay: 0s; }
-        .project-card:nth-child(2) { animation-delay: 0.8s; }
-        .project-card:nth-child(3) { animation-delay: 1.6s; }
-        .project-card:nth-child(4) { animation-delay: 2.4s; }
+        .project-card:nth-child(1) { animation-delay: 0s; border-color: rgba(255, 0, 127, 0.4); }
+        .project-card:nth-child(2) { animation-delay: 0.8s; border-color: rgba(0, 240, 255, 0.4); }
+        .project-card:nth-child(3) { animation-delay: 1.6s; border-color: rgba(255, 230, 0, 0.4); }
+        .project-card:nth-child(4) { animation-delay: 2.4s; border-color: rgba(255, 119, 0, 0.4); }
 
         .project-card:hover {
-            border-color: rgba(99, 102, 241, 0.6);
+            border-color: var(--retro-cyan);
             box-shadow: 0 15px 35px var(--accent-glow);
             animation-play-state: paused;
         }
@@ -287,7 +315,7 @@
         }
 
         .project-card h3 a:hover {
-            color: #818cf8;
+            color: var(--retro-cyan);
         }
 
         .project-card p {
@@ -300,12 +328,13 @@
         .tag {
             display: inline-block;
             font-size: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px;
+            background: rgba(0, 240, 255, 0.08);
+            padding: 4px 12px;
             border-radius: 4px;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
+            color: var(--retro-cyan);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             width: max-content;
+            font-weight: 600;
         }
 
         /* Skills pills */
@@ -322,11 +351,11 @@
 
         .skill-pill {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 2px solid rgba(255, 230, 0, 0.3);
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-primary);
             animation: pillPop 0.5s ease-out backwards;
             transition: all 0.3s ease;
@@ -340,11 +369,11 @@
         .skill-pill:nth-child(6) { animation-delay: 0.6s; }
 
         .skill-pill:hover {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
+            border-color: var(--retro-yellow);
+            background: rgba(255, 230, 0, 0.15);
+            color: var(--retro-yellow);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 230, 0, 0.3);
         }
 
         footer {
@@ -372,10 +401,11 @@
 </head>
 <body>
 
-    <!-- Moving Background Shapes (Visible live motion without mouse) -->
-    <div class="moving-shape shape-1"></div>
-    <div class="moving-shape shape-2"></div>
-    <div class="moving-shape shape-3"></div>
+    <!-- Retro Glowing Moving Background Elements -->
+    <div class="retro-shape shape-pink"></div>
+    <div class="retro-shape shape-cyan"></div>
+    <div class="retro-shape shape-yellow"></div>
+    <div class="retro-shape shape-orange"></div>
 
     <div class="container">
         <!-- Hero Section -->
